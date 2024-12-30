@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+</head>
+<body>
+<h1>Manage Users</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>Admin</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% users.forEach(user => { %>
+        <tr>
+            <td><%= user.username %></td>
+            <td><%= user.admin ? 'Yes' : 'No' %></td>
+            <td>
+                <form method="POST" action="/users/manage">
+                    <input type="hidden" name="userId" value="<%= user._id %>">
+                    <button type="submit" name="action" value="showForm">Change Password</button>
+                </form>
+            </td>
+        </tr>
+    <% }); %>
+    </tbody>
+</table>
+
+<% if (selectedUserId && users.some(user => user._id.toString() === selectedUserId)) { %>
+    <hr>
+    <h2>Change Password</h2>
+    <form method="POST" action="/users/manage">
+        <input type="hidden" name="userId" value="<%= selectedUserId %>">
+        <label for="newPassword">New Password:</label>
+        <input type="password" id="newPassword" name="newPassword" required>
+        <button type="submit" name="action" value="changePassword">Change Password</button>
+    </form>
+<% } %>
+</body>
+</html>

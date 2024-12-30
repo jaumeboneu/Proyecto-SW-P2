@@ -1,0 +1,95 @@
+
+        <!DOCTYPE html>
+        <html lang="es">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Use a crowbar circuit to protect against over voltage</title>
+            <link rel="stylesheet" href="/css/only_skill.css">
+            <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+        </head>
+        <body>
+            <div class="skill-container">
+                <h1>Skill: Use a crowbar circuit to protect against over voltage</h1>
+                <h2>Skill Score: 1 points</h2>
+
+                <!-- Hexágono -->
+                <div class="hexagon-container">
+                    <div class="hexagon">
+                        <!-- Puedes agregar el icono o la imagen dentro del hexágono si lo deseas -->
+                    </div>
+                </div>
+
+                <!-- Descripción de la habilidad -->
+                <h3>Description</h3>
+                <p>Descripción de la Skill 34</p>
+
+                <!-- Tareas -->
+                <h3>Tasks to Complete</h3>
+                <ul id="task-list">
+                    <li><input type="checkbox" class="task-checkbox"> Tarea 34 - Descripción de la tarea simple 34</li><li><input type="checkbox" class="task-checkbox"> Tarea 35 - Otra descripción simple para tarea 35</li>
+                </ul>
+
+                <!-- Proveer evidencia (antes de Recursos) -->
+                <div id="evidence-container" style="display: none;">
+                    <h3>Provide Evidence</h3>
+                    <textarea id="evidence-text" placeholder="Describe your evidence here..."></textarea>
+                    <button id="submit-evidence">Submit Evidence</button>
+                </div>
+
+                <!-- Recursos -->
+                <h3>Resources</h3>
+                <ul>
+                    <li>resource</li><li>resource</li><li>resource</li><li>resource</li><li>resource</li><li>resource</li>
+                </ul>
+            </div>
+
+            <div class="description-container">
+                Descripción adicional sobre la habilidad.
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    const checkboxes = document.querySelectorAll('.task-checkbox');
+                    const evidenceContainer = document.getElementById('evidence-container');
+                    const submitEvidenceButton = document.getElementById('submit-evidence');
+                    const evidenceText = document.getElementById('evidence-text');
+
+                    function checkAllCheckboxes() {
+                        const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                        if (anyChecked) {
+                            evidenceContainer.style.display = 'block'; // Muestra el contenedor de evidencia
+                            launchConfetti(); // Lanza el confeti cuando todos los checkboxes estén marcados
+                        } else {
+                            evidenceContainer.style.display = 'none'; // Oculta el contenedor si no hay ningún checkbox marcado
+                        }
+                    }
+
+                    checkboxes.forEach(checkbox => {
+                        checkbox.addEventListener('change', checkAllCheckboxes);
+                    });
+
+                    function launchConfetti() {
+                        console.log('Lanzando confeti...');
+                        confetti({
+                            particleCount: 100,
+                            spread: 70,
+                            origin: { y: 0.6 }
+                        });
+                    }
+
+                    // Lógica para el botón "Submit Evidence"
+                    submitEvidenceButton.addEventListener('click', () => {
+                        const evidence = evidenceText.value.trim();
+                        if (evidence) {
+                            alert('Evidence Submitted: ' + evidence);
+                            evidenceText.value = ''; // Limpia el campo después de enviar
+                        } else {
+                            alert('Please provide evidence before submitting.');
+                        }
+                    });
+                });
+            </script>
+        </body>
+        </html>
+    

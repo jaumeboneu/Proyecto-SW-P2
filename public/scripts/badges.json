@@ -1,0 +1,122 @@
+[
+  {
+    "rango": "Observador",
+    "bitpoints_min": "0",
+    "bitpoints_max": "9",
+    "png": "00-observador-min.png"
+  },
+  {
+    "rango": "Aspiranteeee a Cadeteeee",
+    "bitpoints_min": "11",
+    "bitpoints_max": "12",
+    "png": "01-Aspirante-cadete-min.png"
+  },
+  {
+    "rango": "Cadete",
+    "bitpoints_min": "21",
+    "bitpoints_max": "29",
+    "png": "02-cadete-min.png"
+  },
+  {
+    "rango": "Cadete nivel-2",
+    "bitpoints_min": 40,
+    "bitpoints_max": 49,
+    "png": "04-cadete-N2-min.png"
+  },
+  {
+    "rango": "Cadete nivel-3",
+    "bitpoints_min": 50,
+    "bitpoints_max": 59,
+    "png": "05-cadete-N3-min.png"
+  },
+  {
+    "rango": "Aspirante a Padawan",
+    "bitpoints_min": 60,
+    "bitpoints_max": 69,
+    "png": "06-Aspirante-padawan-min.png"
+  },
+  {
+    "rango": "Aspirante a Padawan Nivel 1",
+    "bitpoints_min": 70,
+    "bitpoints_max": 79,
+    "png": "07-Aspirante-padawan-N1-min.png"
+  },
+  {
+    "rango": "Aspirante a Padawan Nivel 2",
+    "bitpoints_min": 80,
+    "bitpoints_max": 89,
+    "png": "08-Aspirante-padawan-N2-min.png"
+  },
+  {
+    "rango": "Aspirante a Padawan Nivel 3",
+    "bitpoints_min": 90,
+    "bitpoints_max": 99,
+    "png": "09-Aspirante-padawan-N3-min.png"
+  },
+  {
+    "rango": "Padawan",
+    "bitpoints_min": 100,
+    "bitpoints_max": 109,
+    "png": "10-Padawan-min.png"
+  },
+  {
+    "rango": "Padawan Nivel 1",
+    "bitpoints_min": 110,
+    "bitpoints_max": 119,
+    "png": "11-Padawan-N1-min.png"
+  },
+  {
+    "rango": "Padawan Nivel 2",
+    "bitpoints_min": 120,
+    "bitpoints_max": 129,
+    "png": "12-Padawan-N2-min.png"
+  },
+  {
+    "rango": "Padawan Nivel 3",
+    "bitpoints_min": 130,
+    "bitpoints_max": 139,
+    "png": "13-Padawan-N3-min.png"
+  },
+  {
+    "rango": "Aspirante a Jedi",
+    "bitpoints_min": 140,
+    "bitpoints_max": 149,
+    "png": "14-Aspirante-jedi-min.png"
+  },
+  {
+    "rango": "Aspirante a Jedi Nivel 1",
+    "bitpoints_min": 150,
+    "bitpoints_max": 159,
+    "png": "15-Aspirante-jedi-N1-min.png"
+  },
+  {
+    "rango": "Aspirante a Jedi Nivel 2",
+    "bitpoints_min": 160,
+    "bitpoints_max": 169,
+    "png": "16-Aspirante-jedi-N2-min.png"
+  },
+  {
+    "rango": "Aspirante a Jedi Nivel 3",
+    "bitpoints_min": 170,
+    "bitpoints_max": 179,
+    "png": "17-Aspirante-jedi-N3-min.png"
+  },
+  {
+    "rango": "Jedi Nivel 1",
+    "bitpoints_min": 190,
+    "bitpoints_max": 199,
+    "png": "19-Jedi-N1-min.png"
+  },
+  {
+    "rango": "Jedi Nivel 2",
+    "bitpoints_min": 200,
+    "bitpoints_max": 209,
+    "png": "20-Jedi-N2-min.png"
+  },
+  {
+    "rango": "Jedi Nivel 3",
+    "bitpoints_min": 210,
+    "bitpoints_max": 219,
+    "png": "21-Jedi-N3-min.png"
+  }
+]

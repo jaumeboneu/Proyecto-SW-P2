@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la habilidad</title>
+    <link rel="stylesheet" href="/css/edit_skill.css">
+    <script src="/scripts/edit_skill.js"></script>
+</head>
+<body>
+<h1>Edit Skill: <strong><%= skill.text %></strong></h1>
+<h2>Edit Score: <strong>1 points</strong></h2>
+
+<div style="text-align: center;">
+    <h3>Description</h3>
+    <p>"Here comes the description of the skill <%= skill.text %>"</p>
+</div>
+<div>
+    <div>
+        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" >
+            <polygon class="hexagon" points="60,0 120,30 120,90 60,120 0,90 0,30" />
+            <%= JSON.stringify(skill, null, 2) %>
+            <%
+            const words =  skill.text.split(' ');
+            const lines = [];
+            for (let i = 0; i < words.length; i += 3) {
+                lines.push(words.slice(i, i + 3).join(' '));
+            }
+            %>
+
+            <text x="50%" y="40%" text-anchor="middle" dominant-baseline="middle" font-size="12">
+                <% lines.forEach((line, index) => { %>
+                    <tspan x="50%" dy="<%= index === 0 ? '-12' : '12' %>" font-size="12"><%= line %></tspan>
+                <% }); %>
+            </text>
+            <image href="<%= skill.icon %>" x="35" y="70" width="50" height="50" />
+        </svg>
+    </div>
+    <form action="/skills/electronics/edit/<%= skill.identifier %>" method="POST">
+    <div>
+        <h4>Skill Text:</h4>
+        <textarea id="text" name="text" rows="5" cols="100"><%= skill.text%></textarea>
+    </div>
+    <div>
+        <h4>Description:</h4>
+        <textarea id="descr" name="descr" rows="5" cols="100"><%= skill.description && skill.description.trim() !== "" ? skill.description : "Aquí viene la descripción de la habilidad " + skill.text%></textarea>
+    </div>
+    <div>
+        <h4>Tasks to Complete (one per line):</h4>
+        <textarea id="tasks" name="tasks" class="input" rows="5" cols="100"><%= skill.tasks.join('\n')%></textarea>
+    </div>
+    <div>
+        <h4>Resources (one per line):</h4>
+        <textarea id="resources" name="resources" class="input" rows="5" cols="100"><%= skill.resources.join('\n')%></textarea>
+    </div>
+    <div>
+        <h4>Skill Score:</h4>
+        <input type="number" id="score" name="score" class="scoreinput" value=<%= skill.score%>>
+    </div>
+    <div>
+        <h4>Upload Icon (30x30 png):</h4>
+        <input type="file" id="file-input" name="icon" accept=".png, .svg" value="<%= skill.icon%>">
+        <span id="file-name"></span>
+    </div>
+    <hr>
+    <div>
+        <input type="submit" id="save-btn" value="Save">
+        <input type="button" id="cancel-btn" value="Cancel">
+        <input type="button" id="delete-btn" value="Delete Skill">
+    </div>
+    </form>
+
+</div>
+    <script>
+        const botCancel = document.getElementById("cancel-btn")
+        botCancel.addEventListener("click", () => {
+            window.location.href = "/";
+        })
+
+        const botEliminar = document.getElementById("delete-btn")
+        botEliminar.addEventListener("click", async () => {
+            try {
+                const skillId = "<%= skill.identifier %>"
+                const response = await fetch(`/skills/electronics/delete/${skillId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    alert("Skill eliminado con éxito.");
+                    window.location.href = "/";
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error al eliminar el skill: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error("Error al intentar eliminar el skill:", error);
+                alert("Hubo un problema al eliminar el skill.");
+            }
+        })
+    </script>
+</body>
+</html>

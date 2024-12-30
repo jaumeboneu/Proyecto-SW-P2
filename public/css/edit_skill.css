@@ -1,0 +1,75 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+h1, h2, h3, h4 {
+    margin-top: 0;
+}
+
+
+.hexagon {
+    fill: #007bff;
+}
+
+text {
+    fill: #fff;
+    font-weight: bold;
+}
+
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.input,
+.scoreinput {
+    margin-bottom: 10px;
+}
+
+/* Button styles */
+input[type="button"] {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+input[type="submit"] {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#save-btn {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+#cancel-btn {
+    background-color: gray;
+    color: #fff;
+}
+
+#delete-btn {
+    background-color: #f44336;
+    color: #fff;
+}
+
+/* File input styles */
+#file-name {
+    margin-left: 10px;
+}

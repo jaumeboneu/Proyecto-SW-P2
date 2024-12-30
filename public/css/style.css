@@ -1,0 +1,254 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.hexagon text {
+  font-size: 3px;
+  fill: black;
+  dominant-baseline: middle;
+}
+
+.skill-icon {
+  width: 40px;
+  height: 40px;
+  margin-top: 10px;
+}
+
+#description-box {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+}
+
+.svg-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 20px;
+}
+
+div {
+  display: block;
+  unicode-bidi: isolate;
+}
+
+.hexagon {
+  fill: white;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+.hexagon-text {
+  font-size: 36px;
+  fill: black;
+}
+
+.skill-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+}
+
+.hexagon-green {
+  fill: #90ee90;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+.hexagon-red {
+  fill: #ffcccb;
+  stroke: black;
+  stroke-width: 2px;
+}
+
+.svg-wrapper {
+  position: relative;
+  transition: transform 0.3s ease; 
+  overflow: visible;
+  width: 160px; 
+  height: 160px; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.svg-wrapper:hover {
+  transform: scale(1.08); 
+  transform-origin: center;
+}
+
+.icon-pencil,
+.icon-notebook {
+  position: absolute;
+  width: 40px;  
+  height: 40px;
+  display: none;
+  cursor: pointer;
+}
+
+.icon-pencil {
+  top: 80%;    
+  left: 25%;
+}
+
+.icon-notebook {
+  top: 80%;  
+  right: 25%;
+}
+
+.svg-wrapper:hover .icon-pencil,
+.svg-wrapper:hover .icon-notebook {
+  display: block;
+  transform: scale(1.2);
+}
+
+.svg-wrapper text {
+  font-size: 6px; 
+  text-anchor: middle;
+  transform: translateY(-10%); 
+}
+
+.svg-wrapper:hover text {
+  font-size: 8px;
+}
+
+.svg-wrapper:hover .hexagon {
+  transform: scale(1.08);
+}
+
+.svg-wrapper:hover .icon-pencil,
+.svg-wrapper:hover .icon-notebook {
+  transform: scale(1.2); 
+}
+
+#description-box {
+  display: none;
+  border: 2px solid yellow;
+  padding: 10px;
+  font-size: 1.2em;
+  background-color: #fff8dc;
+  color: #333;
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.evidence-counter {
+  position: absolute;
+  top: 10px;
+  right: 100px;
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.evidence-approved {
+  position: absolute;
+  top: 5px;
+  right: 40px;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.evidence-rejected {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Estilos para el Admin Dashboard */
+.admin-dashboard {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #f4dc8b;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 1000;
+}
+
+.admin-dashboard p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.admin-dashboard a {
+  display: block;
+  margin-top: 8px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.admin-dashboard a:hover {
+  color: #007bff;
+}
+
+button {
+  background-color: #3535ff; /* Fondo azul */
+  color: white; /* Texto blanco */
+  font-size: 18px; /* Un poco más grande */
+  padding: 10px 20px; /* Espaciado interno para que se vea más grande */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambio de cursor al pasar sobre el botón */
+  transition: background-color 0.3s ease; /* Transición suave al pasar el ratón */
+}
+
+button:hover {
+  background-color: #0000c7; /* Cambio de color al pasar el ratón */
+}
+
+.container {
+  display: flex; /* Usamos flexbox para alinear las imágenes en fila */
+  gap: 20px; /* Espacio entre las imágenes */
+  justify-content: center; /* Centra las imágenes en la página */
+}
+
+.container button {
+  max-width: 100%; /* Asegura que las imágenes no se desborden */
+  height: auto; /* Mantiene la proporción de la imagen */
+  border-radius: 5px; /* Opcional, para bordes redondeados */
+}

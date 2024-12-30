@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "text": "skill 1",
+    "icon": "/electronics/icons/icon1.svg",
+    "description": "description of skill 1"
+  },
+  {
+    "id": 2,
+    "text": "skill 2",
+    "icon": "/electronics/icons/icon1.svg",
+    "description": "description of skill 2"
+  },
+    {
+        "id": 3,
+        "text": "skill 2",
+        "icon": "/electronics/icons/icon1.svg",
+        "description": "description of skill 3"
+    }
+]

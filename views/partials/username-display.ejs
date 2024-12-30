@@ -1,0 +1,92 @@
+<!-- username-display.ejs -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            <i class="fas fa-tree"></i> CompetencyTrees
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ms-auto">
+                <!-- Link About siempre visible -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">
+                        <i class="fas fa-info-circle"></i> About
+                    </a>
+                </li>
+
+                <% if(typeof user != 'undefined' && user) { %>
+                    <!-- Usuario autenticado -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ranking">
+                            <i class="fas fa-trophy"></i> Clasificación
+                        </a>
+                    </li>
+
+                    <!-- Dropdown para árboles de competencias -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="competencyDropdown" role="button" 
+                           data-bs-toggle="dropdown">
+                            <i class="fas fa-sitemap"></i> Árboles de Competencias
+                        </a>
+                        <ul class="dropdown-menu">
+                            <% if(typeof competencyTrees != 'undefined' && competencyTrees.length > 0) { %>
+                                <% competencyTrees.forEach(tree => { %>
+                                    <li>
+                                        <a class="dropdown-item" href="/competency-tree/<%= tree.id %>">
+                                            <%= tree.name %> 
+                                            <span class="badge bg-primary"><%= tree.competencyCount %></span>
+                                        </a>
+                                    </li>
+                                <% }); %>
+                            <% } else { %>
+                                <li><span class="dropdown-item">No hay árboles disponibles</span></li>
+                            <% } %>
+                        </ul>
+                    </li>
+
+                    <!-- Si el usuario es administrador -->
+                    <% if(user.isAdmin) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin">
+                                <i class="fas fa-cogs"></i> Panel de Administración
+                            </a>
+                        </li>
+                    <% } %>
+
+                    <!-- Información del usuario y logout -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
+                           data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> <%= user.username %>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="/profile">
+                                    <i class="fas fa-id-card"></i> Mi Perfil
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item text-danger" href="/logout">
+                                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                <% } else { %>
+                    <!-- Usuario no autenticado -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>

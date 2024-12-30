@@ -1,0 +1,34 @@
+<!-- views/add_skill.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Skill</title>
+    <link rel="stylesheet" href="/css/add_skill.css">
+</head>
+<body>
+<h1>Add a New Skill</h1>
+
+<form action="/skills/add" method="POST">
+    <label for="text">Skill Text:</label>
+    <input type="text" id="text" name="text" minlength="6" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="tasks">Tasks (comma separated):</label>
+    <input type="text" id="tasks" minlength="1" name="tasks">
+
+    <label for="resources">Resources (comma separated):</label>
+    <input type="text" id="resources" name="resources">
+
+    <label for="score">Score:</label>
+    <input type="number" id="score" name="score" value="1" required>
+
+    <button type="submit">Add Skill</button>
+</form>
+
+<a href="/">Back to Skills List</a>
+</body>
+</html>

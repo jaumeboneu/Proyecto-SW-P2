@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la habilidad</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Skill: <strong><%= skill.text %></strong></h1>
+    <h2>Skill Score: <strong><%= skill.score %></strong></h2>
+    
+    <div style="text-align: center;">
+        <h3>Description</h3>
+        <p>"Here comes the description of the skill <%= skill.text %>"</p>
+    </div>
+        
+    <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" >
+                <polygon class="hexagon" points="60,0 120,30 120,90 60,120 0,90 0,30" />
+
+                <%
+                    const words = skill.text.split(' ');
+
+                    const lines = [];
+                    for (let i = 0; i < words.length; i += 3) {
+                        lines.push(words.slice(i, i + 3).join(' '));
+                    }
+                %>
+
+                <text x="50%" y="40%" text-anchor="middle" dominant-baseline="middle" font-size="12">
+                    <% lines.forEach((line, index) => { %>
+                        <tspan x="50%" dy="<%= index === 0 ? '-12' : '12' %>" font-size="12"><%= line %></tspan>
+                    <% }); %>
+                </text>
+                <image href="<%= skill.icon %>" x="35" y="70" width="50" height="50" />
+            </svg>
+    </div>
+        
+          
+    
+    <div>
+        <h3>Task to Complete</h3>
+        <ul id="task-list">
+        <li><input type="checkbox" class="task-checkbox"> Task 1</li>
+        <li><input type="checkbox" class="task-checkbox"> Task 2</li>
+        <li><input type="checkbox" class="task-checkbox"> Task 3</li>
+        <li><input type="checkbox" class="task-checkbox"> Task 4</li>
+        </ul>
+    </div>
+
+    <div>
+        <h3>Resources</h3>
+        <ul>
+        <li>url1</li>
+        <li>url2</li>
+        <li>url3</li>
+        <li>url4</li>
+        </ul>
+    </div>
+
+    <!-- Formulario de evidencia -->
+    <div id="evidence-form" style="display: none; margin-top: 20px;">
+        <h3>Submit Evidence</h3>
+        <form action="/submit-evidence" method="POST">
+            <input type="hidden" name="skillId" value="<%= skill.identifier %>">
+            <label for="evidence-url"></label>
+            <input type="url" id="evidence-url" name="evidence-url" required
+                placeholder="Enter a Url as evidence">
+            <button type="submit">Submit Evidence</button>
+        </form>
+    </div>
+
+    <div>
+        <h3>Submitted Evidence</h3>
+        <% if (skill.evidenceUrls && skill.evidenceUrls.length > 0) { %>
+            <table border="1" style="width: 100%; text-align: center;">
+                <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Evidence URL</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% evidences.forEach(function(evidence, index) { %>
+                    <% if (evidence.username !== user.username && (user.admin || user.completedSkills.includes(skill.text)) && !evidence.votedUsers.includes(user.username) && !evidence.approved && !evidence.rejected) { %> <!-- Filtramos las evidencias del usuario actual -->
+                    <tr>
+                        <td><%= evidence.username %></td> <!-- Mostramos el nombre del usuario que subió la evidencia -->
+                        <td>
+                            <a href="<%= evidence.url %>" target="_blank"><%= evidence.url %></a>
+                        </td>
+                        <td>
+                            <button
+                                    style="background-color: green; color: white; padding: 5px; border: none; cursor: pointer;"
+                                    onclick="approveEvidence('<%= skill.identifier %>', this)">
+                                Approve
+                            </button>
+                            <button
+                                    style="background-color: red; color: white; padding: 5px; border: none; cursor: pointer;"
+                                    onclick="rejectEvidence('<%= skill.identifier %>', this)">
+                                Reject
+                            </button>
+                        </td>
+                    </tr>
+                    <% } %>
+                <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p>No evidence submitted yet.</p>
+        <% } %>
+        <a href="/">Back to Skills List</a>
+    </div>
+
+
+    <script>
+        function handleFocus() {
+            const label = document.querySelector('label[for="evidence-url"]');
+            label.style.display = 'none';
+        }
+
+        function handleBlur() {
+            const input = document.getElementById('evidence-url');
+            const label = document.querySelector('label[for="evidence-url"]');
+            if (input.value === '') {
+                label.style.display = 'block';
+            }
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+        function launchConfetti() {
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+        }
+
+        function checkAllTasksCompleted() {
+        const checkboxes = document.querySelectorAll('.task-checkbox');
+        return Array.from(checkboxes).every(checkbox => checkbox.checked);
+        }
+
+        document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            if (checkAllTasksCompleted()) {
+            launchConfetti();
+            document.getElementById('evidence-form').style.display = 'block';
+            } else {
+            document.getElementById('evidence-form').style.display = 'none';
+            }
+        });
+        });
+    </script>
+    
+    <script>
+        function approveEvidence(skillId, button) {
+            const row = button.closest('tr');
+            const index = Array.from(row.parentNode.children).indexOf(row);
+            fetch('/approve-evidence', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ skillId, index })
+            })
+            .then(response => {
+                if (response.ok) {
+                    const row = document.querySelectorAll('tbody tr')[index];
+                    row.parentNode.removeChild(row);
+                } else {
+                    console.error('Error al aprobar la evidencia');
+                }
+            })
+            .catch(err => console.error('Error en la solicitud:', err));
+        }
+
+        function rejectEvidence(skillId, button) {
+            const row = button.closest('tr');
+            const index = Array.from(row.parentNode.children).indexOf(row);
+            fetch('/reject-evidence', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ skillId, index })
+            })
+            .then(response => {
+                if (response.ok) {
+                    const row = document.querySelectorAll('tbody tr')[index];
+                    row.parentNode.removeChild(row);
+                } else {
+                    console.error('Error al rechazar la evidencia');
+                }
+            })
+            .catch(err => console.error('Error en la solicitud:', err));
+        }
+    </script>
+        
+</body>
+</html>

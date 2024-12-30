@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Medallas</title>
+    <link rel="stylesheet" href="/css/style2.css">
+</head>
+<body>
+<h1>Administrar Medallas</h1>
+
+<table id="badges-table">
+    <thead>
+    <tr>
+        <th>Imagen</th>
+        <th>Rango</th>
+        <th>Bitpoints Mínimos</th>
+        <th>Bitpoints Máximos</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% badges.forEach(badge => { %>
+        <tr>
+            <td><img src="/badges/<%= badge.png %>" alt="<%= badge.rango %>" class="badge-image"></td>
+            <td><%= badge.rango %></td>
+            <td><%= badge.bitpoints_min %></td>
+            <td><%= badge.bitpoints_max %></td>
+            <td>
+                <!-- Formulario de edición -->
+                <form action="/admin/badges/edit/<%= badge.id %>" method="GET">
+                    <button type="submit" class="edit-button">Editar</button>
+                </form>
+                <button onclick="deleteBadge('<%= badge.id %>')" class="delete-button">Eliminar</button>
+            </td>
+        </tr>
+    <% }) %>
+    </tbody>
+</table>
+
+<script>
+    // Función para eliminar una medalla
+    async function deleteBadge(id) {
+        console.log(id)
+        if (confirm('¿Estás seguro de que quieres eliminar esta medalla?')) {
+            try {
+                const response = await fetch(`/admin/badges/delete/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                if (response.ok) {
+                    alert("Badge eliminado con éxito.");
+                    window.location.href = "/admin/badges";
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error al eliminar el badge: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error("Error al intentar eliminar el badge:", error);
+                alert("Hubo un problema al eliminar el badge.");
+            }
+        }
+    }
+</script>
+</body>
+</html>

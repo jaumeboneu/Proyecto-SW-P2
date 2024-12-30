@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web-Skill Tree : Electronics</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="scripts/skills.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<h1>ELECTRONICS</h1>
+<h1>Bienvenido, <%= usuario.username %>!</h1>
+<button onclick="window.location.href='/users/logout'">Logout</button>
+<!-- Mostrar el Admin Dashboard solo si el usuario es administrador -->
+<% if (usuario.admin) { %>
+    <div class="admin-dashboard">
+        <p>Welcome, admin!</p>
+        <a href="/admin/badges">Manage Badges</a>
+        <a href="/users/manage">Manage Users</a>
+    </div>
+<% } %>
+
+<div class="skill-tree">
+    <div class="skill-tree-box">
+        <p>Skill Tree: Color in the boxes and level up your skills</p>
+    </div>
+</div>
+<p class="description">
+    Use for individuals or as a group by picking a colour each and coloring in a part of the box. Everyone’s journey is different and you can
+    interpret the goals flexibly. The aim is to inspire you to learn and try new things. Not everything needs to be completed.
+</p>
+<div class="print-button">
+    <button id="print-button" onclick="printTables()"><i class="fas fa-print"></i> Print</button>
+   
+</div>
+<div class="color-picker">
+    <label for="color">Choose a color for marking: </label>
+    <input type="color" id="color" value="#f4dc8b" name="color">
+    <p class="start-here">Start Here <i class="fa-solid fa-hourglass-start"></i> </p>
+    
+</div>
+
+<div class="container">
+    <div class="add-skill-button">
+        <% if (usuario.admin) { %>
+            <button onclick="window.location.href='/skills/add'">Add New Skill</button>
+        <% } %>
+    </div>
+
+    <div class="add-skill-button">
+        <button onclick="window.location.href='/users/leaderboard'">Leaderboard</button>
+    </div>
+</div>
+
+<div class="svg-container">
+    <!-- SVGs generados dinámicamente por skills.js -->
+</div>
+<div id="description-box">
+    <p id="description-text">Aquí aparecerá la descripción de la habilidad.</p>
+</div>
+<script>
+    // Esperar a que el DOM esté completamente cargado
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        //const username = "<%=usuario.username%>"
+        const admin = <%= usuario.admin %>
+
+        try {
+                fetch('scripts/skills_data.json')
+                    .then(response => response.json())
+                    .then(data => {
+                            renderSkills(data, admin);
+                    })
+                    .catch(error => console.error('Error al cargar el archivo JSON:', error));
+
+        } catch (error) {
+            console.error("Error al parsear datos del usuario:", error);
+            // Manejar el error, por ejemplo, mostrar un mensaje de error al usuario
+        }
+    });
+/*
+    const getUserByUsername = async (username) => {
+        try {
+            const user = await User.findOne({ username: username })
+            if (!user) {
+                console.log("No se encontro ningun usuario");
+            }
+            console.log('Usuario encontrado:', user);
+            return user;
+        } catch (err) {
+            console.error(err);
+            throw err;
+        }
+    }*/
+
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Medalla</title>
+    <link rel="stylesheet" href="/css/edit_skill.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Editar Medalla: <%= badge.rango %></h1>
+
+<form action="/admin/badges/edit/<%= badge.id %>" method="POST">
+    <div>
+        <label for="rango">Rango:</label>
+        <input type="text" id="rango" name="rango" value="<%= badge.rango %>" placeholder="Nombre del rango" required>
+    </div>
+
+    <div>
+        <label for="bitpoints_min">Bitpoints Mínimos:</label>
+        <input type="number" id="bitpoints_min" name="bitpoints_min" value="<%= badge.bitpoints_min %>" placeholder="Mínimo de puntos" required>
+    </div>
+
+    <div>
+        <label for="bitpoints_max">Bitpoints Máximos:</label>
+        <input type="number" id="bitpoints_max" name="bitpoints_max" value="<%= badge.bitpoints_max %>" placeholder="Máximo de puntos" required>
+    </div>
+
+    <div>
+        <label for="png">Imagen (PNG):</label>
+        <input type="text" id="png" name="png" value="<%= badge.png %>" placeholder="URL de la imagen" required>
+    </div>
+
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+<a href="/admin/badges">Volver a la lista de medallas</a>
+</body>
+</html>
